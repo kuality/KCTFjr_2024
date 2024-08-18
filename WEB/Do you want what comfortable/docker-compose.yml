@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+        ssti:
+                container_name: web_ssti
+                build:
+                        context: ./
+                        dockerfile: ./settings/web/Dockerfile
+                ports:
+                        - "20207:5000"
+                volumes:
+                        - ./settings/web/flag.txt:/flag.txt
+                        - ./src:/src
+                restart: always

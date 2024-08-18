@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+        web-filter:
+                container_name: web_filter
+                image: web_filter
+                build:
+                        context: ./
+                        dockerfile: ./settings/web/Dockerfile
+                volumes:
+                        - ./src/:/var/www/html/
+                        - ./settings/web/flag.txt:/fa47fec1d57482fb64d9ade6bc4a0138dcf27bc2a97f967d7ed092b624d33159/flag.txt
+                ports:
+                        - "20205:80"
+                restart: always

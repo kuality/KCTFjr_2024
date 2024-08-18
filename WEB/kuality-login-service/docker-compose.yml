@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  kuality-login-service:
+    container_name: web_kuality-login-service
+    build:
+      context: ./
+      dockerfile: ./settings/web/Dockerfile
+    ports:
+      - "20206:5000"
+    volumes:
+      - ./src:/src
+      - ./src/flag.txt:/src/flag.txt:ro
+    restart: always

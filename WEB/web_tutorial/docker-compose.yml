@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+        web-tutorial:
+                container_name: web_tutorials
+                image: web_tutorials
+                build:
+                        context: ./
+                        dockerfile: ./settings/web/Dockerfile
+                volumes:
+                        - ./src/:/var/www/
+                        - ./settings/web/ports.conf:/etc/apache2/ports.conf
+                        - ./settings/web/000-default.conf:/etc/apache2/sites-available/000-default.conf
+                ports:
+                        - "20200-20204:8000-8004"
+                restart: always
+                depends_on:
+                        - database
+                
+        database:
+                image: mariadb:10.5.13
+                restart: always
+                container_name: web_tutorial_db
+                volumes:
+                        - ./settings/db/:/docker-entrypoint-initdb.d/
+                environment:
+                        - MYSQL_ROOT_PASSWORD=ffba7a1c61f7e247cef39021af8289b9afa6f24a67bb7cce992ad94ecb1d6a96
+                        - MYSQL_USER=kuality
+                        - MYSQL_PASSWORD=kuality
+                        - TZ=Asia/Seoul
+                command:
+                        - --character-set-server=utf8 
+                        - --collation-server=utf8_general_ci
+                restart: always

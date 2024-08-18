@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+        base:
+                container_name: web_base
+                image: web_base
+                privileged: true
+                pid: "host"
+                build: 
+                        context: ./
+                        dockerfile: ./settings/web/Dockerfile
+                volumes: 
+                        - ./settings/web/flag.txt:/flag.txt
+
+                ports:
+                        - "20208:80"
+                restart: always
+
+volumes:
+        upload:
+                driver: local
